@@ -1,0 +1,213 @@
+[gd_scene load_steps=36 format=3 uid="uid://b2k6l63gpb3ql"]
+
+[ext_resource type="Script" path="res://camera.gd" id="1_27eia"]
+[ext_resource type="Script" path="res://fidget.gd" id="1_m2uh3"]
+[ext_resource type="Script" path="res://main.gd" id="1_owxty"]
+[ext_resource type="Texture2D" uid="uid://bhyyepwjb47v6" path="res://SpinnerAssets/fidget outside.png" id="1_s0t8q"]
+[ext_resource type="Script" path="res://spinner.gd" id="2_5u6g1"]
+[ext_resource type="Script" path="res://SpeedReactors/reactor_camera_shake_strength.gd" id="2_ybv0w"]
+[ext_resource type="Texture2D" uid="uid://d1i8q17e2mt4v" path="res://SpinnerAssets/fidget center.png" id="3_52m0w"]
+[ext_resource type="Script" path="res://SpeedReactors/reactor_background_color.gd" id="3_bx155"]
+[ext_resource type="Texture2D" uid="uid://b2c4w8hxst7cs" path="res://crater.png" id="4_5o08s"]
+[ext_resource type="AudioStream" uid="uid://d4dqmdxd4kjd0" path="res://SpinnerAssets/round and round.wav" id="4_u2sld"]
+[ext_resource type="Script" path="res://SpeedReactors/reactor_crater_transparency.gd" id="5_opr5e"]
+[ext_resource type="Script" path="res://SpeedReactors/reactor_fidget_saturation.gd" id="5_oqjv0"]
+[ext_resource type="Script" path="res://SpeedReactors/reactor_fidget_hue_change_speed.gd" id="6_he4wq"]
+[ext_resource type="Script" path="res://SpeedReactors/reactor_music_volume.gd" id="6_y5rxv"]
+[ext_resource type="Script" path="res://SpeedReactors/reactor_music_speed.gd" id="7_lprem"]
+[ext_resource type="Script" path="res://SpeedReactors/reactor_spin_volume.gd" id="9_7lgfr"]
+[ext_resource type="AudioStream" uid="uid://cha2esqcr0now" path="res://rumble.wav" id="12_83i0e"]
+[ext_resource type="PackedScene" uid="uid://btaowaeedvkeh" path="res://Explosion/explosion.tscn" id="12_xlinc"]
+[ext_resource type="Script" path="res://SpeedReactors/reactor_rumble_volume.gd" id="13_fl5de"]
+[ext_resource type="AudioStream" uid="uid://3j851a5f2qf3" path="res://alert siren.wav" id="14_xqfmk"]
+[ext_resource type="Script" path="res://SpeedReactors/reactor_siren_play.gd" id="15_eixcb"]
+[ext_resource type="Script" path="res://siren_flash.gd" id="16_5sk8c"]
+[ext_resource type="Script" path="res://Dialogue/dialogue.gd" id="16_nvtr2"]
+[ext_resource type="AudioStream" uid="uid://dvn7jecbp6unt" path="res://SpinnerAssets/fidget spinner spin sound 2.wav" id="20_b3873"]
+[ext_resource type="FontFile" uid="uid://dmu052mtujtdx" path="res://NotoMusic-Regular.ttf" id="24_ooj8i"]
+[ext_resource type="Script" path="res://Dialogue/dialogue_label.gd" id="25_2f1r6"]
+[ext_resource type="AudioStream" uid="uid://d1cknc16xhr7u" path="res://newSpinnerSound.wav" id="26_t6tad"]
+[ext_resource type="AudioStream" uid="uid://bevd5r0bq23ql" path="res://clown.wav" id="28_futfh"]
+
+[sub_resource type="Resource" id="Resource_v4p7f"]
+script = ExtResource("16_nvtr2")
+strings = Array[String](["Whoa...", "That was crazy...", "Be more careful this time."])
+
+[sub_resource type="Resource" id="Resource_bah6e"]
+script = ExtResource("16_nvtr2")
+strings = Array[String](["Okay, so like...", "Are you a bad listener or something?", "Did you not hear the siren?", "Don't destroy this one."])
+
+[sub_resource type="Resource" id="Resource_iorb3"]
+script = ExtResource("16_nvtr2")
+strings = Array[String](["...", "I'm not mad, I'm disappointed.", "Don't look at me like that.", "", "Okay fine, here's one more."])
+
+[sub_resource type="Resource" id="Resource_ube7o"]
+script = ExtResource("16_nvtr2")
+strings = Array[String](["Is this some kind of joke?", "You think you're real funny huh?", "Well you're not.", "This is the last one clown."])
+
+[sub_resource type="Resource" id="Resource_3mv3j"]
+script = ExtResource("16_nvtr2")
+strings = Array[String](["You're testing my patience here.", "Don't you have anything better to do?", "Like a job?", "Oh that's right, no one can get a job.", "Man, now I feel bad for you.", "You feel so powerless, the only way you can feel in control...", " is by destroying these fake fidget spinners.", "It's not the fidget spinner's fault you are a pathetic slob with no future.", "SO STOP WRECKING THEM!"])
+
+[sub_resource type="Resource" id="Resource_eio4o"]
+script = ExtResource("16_nvtr2")
+strings = Array[String](["Really?", "For real. Are you serious right now?", "I might not be real...", "But the game is programmed so that...", "as long as I'm talking...", "another fidget spinner won't appear", "So I'll just...", "Keep...", "Talking...", "Forever...", "", "", "PLEASE STOP!!!!"])
+
+[sub_resource type="Resource" id="Resource_jcghf"]
+script = ExtResource("16_nvtr2")
+strings = Array[String](["You've gone and done it again.", "You've broken %s fidget spinners.", "There's no more unique text, you've seen it all.", "Are you happy?"])
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_owxty")
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(600, 350)
+script = ExtResource("1_27eia")
+metadata/_edit_lock_ = true
+
+[node name="ReactorCameraShakeStrength" type="Node" parent="Camera"]
+script = ExtResource("2_ybv0w")
+minValueSpeed = 200.0
+maxValue = 100.0
+maxValueSpeed = 250.0
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1200.0
+offset_bottom = 700.0
+metadata/_edit_lock_ = true
+
+[node name="ReactorBackgroundColor" type="Node" parent="Background"]
+script = ExtResource("3_bx155")
+minValue = 1.0
+minValueSpeed = 120.0
+maxValue = 0.4
+maxValueSpeed = 250.0
+
+[node name="Crater" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(572, 345)
+scale = Vector2(3.05, 3.05)
+texture = ExtResource("4_5o08s")
+metadata/_edit_lock_ = true
+
+[node name="ReactorCraterTransparency" type="Node" parent="Crater"]
+script = ExtResource("5_opr5e")
+minValueSpeed = 150.0
+maxValue = 1.0
+maxValueSpeed = 200.0
+
+[node name="Fidget" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_m2uh3")
+metadata/_edit_lock_ = true
+
+[node name="Center" type="Sprite2D" parent="Fidget"]
+position = Vector2(568, 363)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("3_52m0w")
+offset = Vector2(3, -31)
+metadata/_edit_lock_ = true
+
+[node name="Spinner" type="Sprite2D" parent="Fidget"]
+unique_name_in_owner = true
+position = Vector2(568, 363)
+texture = ExtResource("1_s0t8q")
+offset = Vector2(3, -31)
+script = ExtResource("2_5u6g1")
+metadata/_edit_lock_ = true
+
+[node name="ReactorFidgetSaturation" type="Node" parent="Fidget"]
+script = ExtResource("5_oqjv0")
+minValueSpeed = 90.0
+maxValue = 1.0
+maxValueSpeed = 250.0
+
+[node name="ReactorFidgetHueChangeSpeed" type="Node" parent="Fidget"]
+script = ExtResource("6_he4wq")
+minValue = 0.033
+minValueSpeed = 110.0
+maxValue = 0.1
+maxValueSpeed = 250.0
+
+[node name="Explosion" parent="." instance=ExtResource("12_xlinc")]
+unique_name_in_owner = true
+visible = false
+position = Vector2(573, 375)
+
+[node name="DialogueLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_top = 514.0
+offset_right = 1200.0
+offset_bottom = 697.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("24_ooj8i")
+theme_override_font_sizes/font_size = 50
+horizontal_alignment = 1
+autowrap_mode = 3
+script = ExtResource("25_2f1r6")
+dialogues = Array[ExtResource("16_nvtr2")]([SubResource("Resource_v4p7f"), SubResource("Resource_bah6e"), SubResource("Resource_iorb3"), SubResource("Resource_ube7o"), SubResource("Resource_3mv3j"), SubResource("Resource_eio4o"), SubResource("Resource_jcghf")])
+metadata/_edit_lock_ = true
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_u2sld")
+volume_db = -80.0
+autoplay = true
+bus = &"Music"
+
+[node name="ReactorMusicVolume" type="Node" parent="Music"]
+script = ExtResource("6_y5rxv")
+minValue = -80.0
+minValueSpeed = 70.0
+maxValueSpeed = 90.0
+
+[node name="ReactorMusicSpeed" type="Node" parent="Music"]
+script = ExtResource("7_lprem")
+minValue = 1.0
+minValueSpeed = 100.0
+maxValue = 3.0
+maxValueSpeed = 250.0
+
+[node name="Spin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("20_b3873")
+autoplay = true
+
+[node name="ReactorSpinVolume" type="Node" parent="Spin"]
+script = ExtResource("9_7lgfr")
+minValue = -80.0
+minValueSpeed = 3.0
+maxValueSpeed = 40.0
+
+[node name="Rumble" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_83i0e")
+autoplay = true
+
+[node name="ReactorRumbleVolume" type="Node" parent="Rumble"]
+script = ExtResource("13_fl5de")
+minValue = -80.0
+minValueSpeed = 130.0
+maxValue = 3.0
+maxValueSpeed = 250.0
+
+[node name="Siren" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_xqfmk")
+volume_db = -10.0
+
+[node name="ReactorSirenPlay" type="Node" parent="Siren"]
+script = ExtResource("15_eixcb")
+minSirenSpeed = 180.0
+
+[node name="SirenColor" type="ColorRect" parent="Siren"]
+offset_right = 1200.0
+offset_bottom = 700.0
+color = Color(1, 0, 0, 0)
+script = ExtResource("16_5sk8c")
+maxAlpha = 0.5
+metadata/_edit_lock_ = true
+
+[node name="FunnyNoises" type="Node" parent="."]
+
+[node name="NewSpinner" type="AudioStreamPlayer" parent="FunnyNoises"]
+stream = ExtResource("26_t6tad")
+
+[node name="Clown" type="AudioStreamPlayer" parent="FunnyNoises"]
+stream = ExtResource("28_futfh")

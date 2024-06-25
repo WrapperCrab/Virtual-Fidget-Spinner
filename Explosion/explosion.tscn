@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://btaowaeedvkeh"]
+
+[ext_resource type="Texture2D" uid="uid://cfc2o7dxchht8" path="res://Explosion/explosion_pixelfied.png" id="1_nfxto"]
+[ext_resource type="Script" path="res://Explosion/explosion.gd" id="2_haiea"]
+[ext_resource type="AudioStream" uid="uid://dm7unath4pi53" path="res://Explosion/explosion.mp3" id="2_re6ky"]
+
+[sub_resource type="Animation" id="Animation_ncji8"]
+resource_name = "explode"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6vii6"]
+_data = {
+"explode": SubResource("Animation_ncji8")
+}
+
+[node name="Explosion" type="Sprite2D"]
+texture_filter = 1
+position = Vector2(616, 351)
+scale = Vector2(25, 25)
+texture = ExtResource("1_nfxto")
+hframes = 4
+vframes = 4
+script = ExtResource("2_haiea")
+
+[node name="ExplodeAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6vii6")
+}
+speed_scale = 2.0
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_re6ky")
